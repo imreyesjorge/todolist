@@ -5,6 +5,7 @@ import NewTodo from '../components/NewTodo/NewTodo';
 import ToDo from '../components/ToDo/ToDo';
 import Main from '../layouts/Main/Main';
 import EditModal from '../components/EditModal/EditModal';
+import { ACTIONS } from '../models/TodoModel';
 
 const Index = () => {
    const [tasks, setTasks] = useState([]);
@@ -37,7 +38,7 @@ const Index = () => {
       );
    };
 
-   const onTodoEdit = (_id, newTitle, newBody) => {
+   const onTodoEdit = (_id: string, newTitle: string, newBody: string) => {
       setIsEditVisible(true);
       setEditModalData({
          _id,
@@ -60,7 +61,7 @@ const Index = () => {
       newTitle: string,
       newBody: string,
    ) => {
-      const updatedTasks = tasks;
+      const updatedTasks = [...tasks];
       const taskToUpdate = updatedTasks.findIndex((task) => {
          return task._id == _id;
       });
@@ -70,6 +71,25 @@ const Index = () => {
 
       setTasks(updatedTasks);
       onEditModalClose();
+   };
+
+   const onPositionChange = (action: ACTIONS, index) => {
+      if (
+         (index == 0 && action == ACTIONS.UP) ||
+         (index == tasks.length - 1 && action == ACTIONS.DOWN)
+      ) {
+         console.log('Cannot do this operation');
+      } else {
+         {
+            const updatedTasks = [...tasks];
+            let aux = updatedTasks[index];
+            updatedTasks[index] =
+               updatedTasks[action == ACTIONS.UP ? index - 1 : index + 1];
+            updatedTasks[action == ACTIONS.UP ? index - 1 : index + 1] = aux;
+
+            setTasks(updatedTasks);
+         }
+      }
    };
 
    const createNewTodoComponent = (
@@ -91,15 +111,17 @@ const Index = () => {
    return (
       <Main>
          <Box display="flex" flexDirection="column" gap={4}>
-            {tasks.map((task) => (
+            {tasks.map((task, index) => (
                <ToDo
                   title={task.title}
                   body={task.body}
                   date={task.date}
                   key={task._id}
                   _id={task._id}
+                  index={index}
                   onDelete={onTodoDelete}
                   onEdit={onTodoEdit}
+                  onPositionChange={onPositionChange}
                />
             ))}
             {isCreateMode
