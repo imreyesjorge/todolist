@@ -1,12 +1,10 @@
-import { Badge } from '@chakra-ui/react';
+import Main from '../layouts/Main/Main';
 
 const Index = () => {
    return (
-      <main>
-         <p>
-            Chakra UI status: <Badge colorScheme="green">success</Badge>
-         </p>
-      </main>
+      <Main>
+         <p>Hello, I'm the content!</p>
+      </Main>
    );
 };
 

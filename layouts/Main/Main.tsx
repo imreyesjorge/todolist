@@ -1,5 +1,12 @@
+import Nav from '../../components/Nav/Nav';
+
 const Main = ({ children }) => {
-   return <main>{children}</main>;
+   return (
+      <>
+         <Nav />
+         <main>{children}</main>
+      </>
+   );
 };
 
 export default Main;
