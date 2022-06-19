@@ -1,6 +1,7 @@
 import { Box, Checkbox, Heading, Text } from '@chakra-ui/react';
+import { TodoProps } from '../../models/TodoModel';
 
-const ToDo = () => {
+const ToDo = ({ title, body, date }: TodoProps) => {
    return (
       <Box
          as="article"
@@ -14,11 +15,11 @@ const ToDo = () => {
          <Checkbox mt={1} />
          <Box>
             <Box mb={3}>
-               <Heading fontSize="lg">To-Do Title</Heading>
-               <Text fontSize="md">To-Do Body Text</Text>
+               <Heading fontSize="lg">{title}</Heading>
+               <Text fontSize="md">{body}</Text>
             </Box>
             <Text fontSize="xs" color="gray.400">
-               {Date()}
+               {date}
             </Text>
          </Box>
       </Box>
