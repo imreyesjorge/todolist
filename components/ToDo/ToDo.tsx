@@ -16,13 +16,8 @@ const ToDo = ({ _id, title, body, date, onDelete }: TodoProps) => {
          gap={2}>
          <Box>
             <Box>
-               <Heading fontSize="lg" textDecoration={status && 'line-through'}>
-                  {title}
-               </Heading>
-               <Text
-                  fontSize="md"
-                  textDecoration={status && 'line-through'}
-                  mb={3}>
+               <Heading fontSize="lg">{title}</Heading>
+               <Text fontSize="md" mb={3}>
                   {body}
                </Text>
                <Text fontSize="xs" color="gray.400">

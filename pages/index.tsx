@@ -4,6 +4,7 @@ import { useState } from 'react';
 import NewTodo from '../components/NewTodo/NewTodo';
 import ToDo from '../components/ToDo/ToDo';
 import Main from '../layouts/Main/Main';
+import EditModal from '../components/EditModal/EditModal';
 
 const Index = () => {
    const [tasks, setTasks] = useState([]);
@@ -51,7 +52,7 @@ const Index = () => {
    return (
       <Main>
          <Box display="flex" flexDirection="column" gap={4}>
-            {tasks.map((task, index) => (
+            {tasks.map((task) => (
                <ToDo
                   title={task.title}
                   body={task.body}
@@ -65,6 +66,7 @@ const Index = () => {
                ? createNewTodoTemplateComponent
                : createNewTodoComponent}
          </Box>
+         <EditModal _id="1" newTitle="test" newBody="test" />
       </Main>
    );
 };
