@@ -5,6 +5,5 @@ export interface TodoProps {
 }
 
 export interface NewTodoProps {
-   handleCancel: (...args: any[]) => void;
-   handleCreate: (...args: any[]) => void;
+   handleVisibility: (...args: any[]) => void;
 }

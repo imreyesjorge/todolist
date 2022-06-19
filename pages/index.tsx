@@ -14,7 +14,7 @@ const Index = () => {
    };
 
    // Create New To-Do button
-   const createNewTodo = (
+   const createNewTodoComponent = (
       <Button
          size="lg"
          rightIcon={<PlusSquareIcon />}
@@ -24,7 +24,9 @@ const Index = () => {
    );
 
    // Create New To-Do template
-   const createNewTodoTemplate = <NewTodo />;
+   const createNewTodoTemplateComponent = (
+      <NewTodo handleVisibility={setIsCreateMode} />
+   );
 
    return (
       <Main>
@@ -37,7 +39,9 @@ const Index = () => {
                   key={index}
                />
             ))}
-            {isCreateMode ? createNewTodoTemplate : createNewTodo}
+            {isCreateMode
+               ? createNewTodoTemplateComponent
+               : createNewTodoComponent}
          </Box>
       </Main>
    );
