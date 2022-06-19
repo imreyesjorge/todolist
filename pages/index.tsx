@@ -6,11 +6,20 @@ import ToDo from '../components/ToDo/ToDo';
 import Main from '../layouts/Main/Main';
 
 const Index = () => {
-   const [tasks, setTasks] = useState([1, 2, 3, 4]);
+   const [tasks, setTasks] = useState([]);
    const [isCreateMode, setIsCreateMode] = useState(false);
 
    const onCreateNewTodoClick = () => {
       setIsCreateMode(true);
+   };
+
+   const onCreateNewTodo = (
+      _id: string,
+      title: string,
+      body: string,
+      date: string,
+   ) => {
+      setTasks([...tasks, { _id, title, body, date }]);
    };
 
    // Create New To-Do button
@@ -25,18 +34,21 @@ const Index = () => {
 
    // Create New To-Do template
    const createNewTodoTemplateComponent = (
-      <NewTodo handleVisibility={setIsCreateMode} />
+      <NewTodo
+         handleVisibility={setIsCreateMode}
+         handleCreate={onCreateNewTodo}
+      />
    );
 
    return (
       <Main>
          <Box display="flex" flexDirection="column" gap={4}>
-            {tasks.map((index, task) => (
+            {tasks.map((task, index) => (
                <ToDo
-                  title="First To-Do"
-                  body="This is the body of my first To-Do task"
-                  date="2022, May 12"
-                  key={index}
+                  title={task.title}
+                  body={task.body}
+                  date={task.date}
+                  key={task._id}
                />
             ))}
             {isCreateMode

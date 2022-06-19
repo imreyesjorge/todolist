@@ -6,4 +6,5 @@ export interface TodoProps {
 
 export interface NewTodoProps {
    handleVisibility: (...args: any[]) => void;
+   handleCreate: (...args: any[]) => void;
 }
