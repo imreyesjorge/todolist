@@ -55,6 +55,23 @@ const Index = () => {
       setIsEditVisible(false);
    };
 
+   const onEditModalUpdate = (
+      _id: string,
+      newTitle: string,
+      newBody: string,
+   ) => {
+      const updatedTasks = tasks;
+      const taskToUpdate = updatedTasks.findIndex((task) => {
+         return task._id == _id;
+      });
+
+      updatedTasks[taskToUpdate].title = newTitle;
+      updatedTasks[taskToUpdate].body = newBody;
+
+      setTasks(updatedTasks);
+      onEditModalClose();
+   };
+
    const createNewTodoComponent = (
       <Button
          size="lg"
@@ -94,6 +111,7 @@ const Index = () => {
                editModalData={editModalData}
                setEditModalData={setEditModalData}
                closeModal={onEditModalClose}
+               updateTodo={onEditModalUpdate}
             />
          )}
       </Main>

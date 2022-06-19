@@ -1,6 +1,11 @@
 import { Box, Input, Button } from '@chakra-ui/react';
 
-const EditModal = ({ editModalData, setEditModalData, closeModal }) => {
+const EditModal = ({
+   editModalData,
+   setEditModalData,
+   closeModal,
+   updateTodo,
+}) => {
    return (
       <Box
          as="section"
@@ -42,7 +47,17 @@ const EditModal = ({ editModalData, setEditModalData, closeModal }) => {
             </Box>
             <Box display="flex" justifyContent="center" gap={4}>
                <Button onClick={closeModal}>Cancel</Button>
-               <Button colorScheme="blue">Update</Button>
+               <Button
+                  onClick={() => {
+                     updateTodo(
+                        editModalData._id,
+                        editModalData.newTitle,
+                        editModalData.newBody,
+                     );
+                  }}
+                  colorScheme="blue">
+                  Update
+               </Button>
             </Box>
          </Box>
       </Box>
