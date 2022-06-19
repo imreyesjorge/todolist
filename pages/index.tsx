@@ -1,6 +1,7 @@
 import { PlusSquareIcon } from '@chakra-ui/icons';
 import { Box, Button } from '@chakra-ui/react';
 import { useState } from 'react';
+import NewTodo from '../components/NewTodo/NewTodo';
 import ToDo from '../components/ToDo/ToDo';
 import Main from '../layouts/Main/Main';
 
@@ -23,13 +24,7 @@ const Index = () => {
    );
 
    // Create New To-Do template
-   const createNewTodoTemplate = (
-      <ToDo
-         title="To-Do Title"
-         body="Brief description of the To-Do"
-         date="2022, May 12"
-      />
-   );
+   const createNewTodoTemplate = <NewTodo />;
 
    return (
       <Main>
