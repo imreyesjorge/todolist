@@ -1,4 +1,5 @@
 import { Flex, Spacer, Center, Button, Text } from '@chakra-ui/react';
+import { MoonIcon } from '@chakra-ui/icons';
 
 const Nav = () => {
    return (
@@ -10,7 +11,9 @@ const Nav = () => {
          </Center>
          <Spacer />
          <Center>
-            <Button>Toggle Theme</Button>
+            <Button>
+               <MoonIcon />
+            </Button>
          </Center>
       </Flex>
    );
