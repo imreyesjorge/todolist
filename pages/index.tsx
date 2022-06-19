@@ -22,6 +22,14 @@ const Index = () => {
       setTasks([...tasks, { _id, title, body, date }]);
    };
 
+   const onTodoDelete = (_id: string) => {
+      setTasks(
+         tasks.filter((task) => {
+            return task._id != _id;
+         }),
+      );
+   };
+
    // Create New To-Do button
    const createNewTodoComponent = (
       <Button
@@ -49,6 +57,8 @@ const Index = () => {
                   body={task.body}
                   date={task.date}
                   key={task._id}
+                  _id={task._id}
+                  onDelete={onTodoDelete}
                />
             ))}
             {isCreateMode

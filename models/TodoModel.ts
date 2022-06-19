@@ -1,7 +1,9 @@
 export interface TodoProps {
+   _id: string;
    title: string;
    body: string;
    date: string;
+   onDelete: (...args: any[]) => void;
 }
 
 export interface NewTodoProps {

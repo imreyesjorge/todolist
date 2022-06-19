@@ -2,7 +2,7 @@ import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { Box, Button, Heading, Text } from '@chakra-ui/react';
 import { TodoProps } from '../../models/TodoModel';
 
-const ToDo = ({ title, body, date }: TodoProps) => {
+const ToDo = ({ _id, title, body, date, onDelete }: TodoProps) => {
    return (
       <Box
          as="article"
@@ -35,7 +35,11 @@ const ToDo = ({ title, body, date }: TodoProps) => {
                <EditIcon />
             </Button>
             <Button>
-               <DeleteIcon />
+               <DeleteIcon
+                  onClick={() => {
+                     onDelete(_id);
+                  }}
+               />
             </Button>
          </Box>
       </Box>
