@@ -4,6 +4,7 @@ export interface TodoProps {
    body: string;
    date: string;
    onDelete: (...args: any[]) => void;
+   onEdit: (...args: any[]) => void;
 }
 
 export interface NewTodoProps {

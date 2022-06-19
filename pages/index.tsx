@@ -9,6 +9,12 @@ import EditModal from '../components/EditModal/EditModal';
 const Index = () => {
    const [tasks, setTasks] = useState([]);
    const [isCreateMode, setIsCreateMode] = useState(false);
+   const [editModalData, setEditModalData] = useState({
+      _id: '',
+      newTitle: '',
+      newBody: '',
+   });
+   const [isEditVisible, setIsEditVisible] = useState(false);
 
    const onCreateNewTodoClick = () => {
       setIsCreateMode(true);
@@ -31,7 +37,24 @@ const Index = () => {
       );
    };
 
-   // Create New To-Do button
+   const onTodoEdit = (_id, newTitle, newBody) => {
+      setIsEditVisible(true);
+      setEditModalData({
+         _id,
+         newTitle,
+         newBody,
+      });
+   };
+
+   const onEditModalClose = () => {
+      setEditModalData({
+         _id: '',
+         newTitle: '',
+         newBody: '',
+      });
+      setIsEditVisible(false);
+   };
+
    const createNewTodoComponent = (
       <Button
          size="lg"
@@ -41,7 +64,6 @@ const Index = () => {
       </Button>
    );
 
-   // Create New To-Do template
    const createNewTodoTemplateComponent = (
       <NewTodo
          handleVisibility={setIsCreateMode}
@@ -60,13 +82,20 @@ const Index = () => {
                   key={task._id}
                   _id={task._id}
                   onDelete={onTodoDelete}
+                  onEdit={onTodoEdit}
                />
             ))}
             {isCreateMode
                ? createNewTodoTemplateComponent
                : createNewTodoComponent}
          </Box>
-         <EditModal _id="1" newTitle="test" newBody="test" />
+         {isEditVisible && (
+            <EditModal
+               editModalData={editModalData}
+               setEditModalData={setEditModalData}
+               closeModal={onEditModalClose}
+            />
+         )}
       </Main>
    );
 };
