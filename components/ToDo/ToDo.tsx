@@ -1,4 +1,5 @@
-import { Box, Checkbox, Heading, Text } from '@chakra-ui/react';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { Box, Button, Heading, Text } from '@chakra-ui/react';
 import { TodoProps } from '../../models/TodoModel';
 
 const ToDo = ({ title, body, date }: TodoProps) => {
@@ -10,17 +11,32 @@ const ToDo = ({ title, body, date }: TodoProps) => {
          p={4}
          borderRadius={8}
          display="flex"
+         justifyContent="space-between"
          alignItems="start"
          gap={2}>
-         <Checkbox mt={1} />
          <Box>
-            <Box mb={3}>
-               <Heading fontSize="lg">{title}</Heading>
-               <Text fontSize="md">{body}</Text>
+            <Box>
+               <Heading fontSize="lg" textDecoration={status && 'line-through'}>
+                  {title}
+               </Heading>
+               <Text
+                  fontSize="md"
+                  textDecoration={status && 'line-through'}
+                  mb={3}>
+                  {body}
+               </Text>
+               <Text fontSize="xs" color="gray.400">
+                  {date}
+               </Text>
             </Box>
-            <Text fontSize="xs" color="gray.400">
-               {date}
-            </Text>
+         </Box>
+         <Box display="flex" gap={2}>
+            <Button>
+               <EditIcon />
+            </Button>
+            <Button>
+               <DeleteIcon />
+            </Button>
          </Box>
       </Box>
    );
