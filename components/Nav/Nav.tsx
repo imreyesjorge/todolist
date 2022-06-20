@@ -1,7 +1,10 @@
 import { Flex, Spacer, Center, Button, Heading } from '@chakra-ui/react';
 import { MoonIcon } from '@chakra-ui/icons';
+import { useColorMode } from '@chakra-ui/react';
 
 const Nav = () => {
+   const { toggleColorMode } = useColorMode();
+
    return (
       <Flex as="nav" p="2">
          <Center>
@@ -9,7 +12,7 @@ const Nav = () => {
          </Center>
          <Spacer />
          <Center>
-            <Button>
+            <Button onClick={toggleColorMode}>
                <MoonIcon />
             </Button>
          </Center>
