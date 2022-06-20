@@ -24,17 +24,10 @@ const NewTodo = ({ handleVisibility, handleCreate }: NewTodoProps) => {
    };
 
    return (
-      <Box
-         p={4}
-         borderRadius={8}
-         bg="gray.50"
-         display="flex"
-         flexDirection="column"
-         gap={3}>
+      <Box p={4} borderRadius={8} display="flex" flexDirection="column" gap={3}>
          <Box display="flex" flexDirection="column" gap={3}>
             <Input
                placeholder="To-Do Title"
-               bg="white"
                value={content.title}
                onChange={(event) => {
                   setContent({ ...content, title: event.target.value });
@@ -42,7 +35,6 @@ const NewTodo = ({ handleVisibility, handleCreate }: NewTodoProps) => {
             />
             <Input
                placeholder="Description"
-               bg="white"
                value={content.body}
                onChange={(event) => {
                   setContent({ ...content, body: event.target.value });
