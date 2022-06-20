@@ -1,4 +1,4 @@
-import { Box, Input, Button } from '@chakra-ui/react';
+import { Box, Input, Button, useColorModeValue } from '@chakra-ui/react';
 
 const EditModal = ({
    editModalData,
@@ -6,6 +6,8 @@ const EditModal = ({
    closeModal,
    updateTodo,
 }) => {
+   const backgroundColor = useColorModeValue('white', 'gray.800');
+
    return (
       <Box
          width="100%"
@@ -19,18 +21,18 @@ const EditModal = ({
          justifyContent="center"
          flexDirection="column">
          <Box
-            bg="white"
+            bg={backgroundColor}
             width="50%"
             p={8}
             borderRadius={8}
             position="absolute"
+            shadow="xl"
             top="50%"
             left="50%"
             transform="translate(-50%, -50%)">
             <Box display="flex" flexDirection="column" gap={3} mb={4}>
                <Input
                   placeholder="New Title"
-                  bg="white"
                   value={editModalData.newTitle}
                   onChange={(event) => {
                      setEditModalData({
@@ -41,7 +43,6 @@ const EditModal = ({
                />
                <Input
                   placeholder="New Description"
-                  bg="white"
                   value={editModalData.newBody}
                   onChange={(event) => {
                      setEditModalData({
