@@ -4,7 +4,13 @@ import {
    DeleteIcon,
    EditIcon,
 } from '@chakra-ui/icons';
-import { Box, Button, Heading, Text } from '@chakra-ui/react';
+import {
+   Box,
+   Button,
+   Heading,
+   Text,
+   useColorModeValue,
+} from '@chakra-ui/react';
 import { ACTIONS, TodoProps } from '../../models/TodoModel';
 
 const ToDo = ({
@@ -17,11 +23,13 @@ const ToDo = ({
    onEdit,
    onPositionChange,
 }: TodoProps) => {
+   const borderColor = useColorModeValue('gray.200', 'gray.700');
+
    return (
       <Box
          as="article"
          border="1px"
-         borderColor="gray.200"
+         borderColor={borderColor}
          p={4}
          borderRadius={8}
          display="flex"
