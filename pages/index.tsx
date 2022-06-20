@@ -17,28 +17,14 @@ const Index = () => {
    });
    const [isEditVisible, setIsEditVisible] = useState(false);
 
+   /*-------------------/
+   /- Event Listeners  -/
+   /-------------------*/
    const onCreateNewTodoClick = () => {
       setIsCreateMode(true);
    };
 
-   const onCreateNewTodo = (
-      _id: string,
-      title: string,
-      body: string,
-      date: string,
-   ) => {
-      setTasks([...tasks, { _id, title, body, date }]);
-   };
-
-   const onTodoDelete = (_id: string) => {
-      setTasks(
-         tasks.filter((task) => {
-            return task._id != _id;
-         }),
-      );
-   };
-
-   const onTodoEdit = (_id: string, newTitle: string, newBody: string) => {
+   const onTodoEditClick = (_id: string, newTitle: string, newBody: string) => {
       setIsEditVisible(true);
       setEditModalData({
          _id,
@@ -54,6 +40,18 @@ const Index = () => {
          newBody: '',
       });
       setIsEditVisible(false);
+   };
+
+   /*-------------------/
+   /- To-Do's Actions  -/
+   /-------------------*/
+   const onCreateNewTodo = (
+      _id: string,
+      title: string,
+      body: string,
+      date: string,
+   ) => {
+      setTasks([...tasks, { _id, title, body, date }]);
    };
 
    const onEditModalUpdate = (
@@ -73,7 +71,7 @@ const Index = () => {
       onEditModalClose();
    };
 
-   const onPositionChange = (action: ACTIONS, index) => {
+   const onPositionChange = (action: ACTIONS, index: number) => {
       if (
          (index == 0 && action == ACTIONS.UP) ||
          (index == tasks.length - 1 && action == ACTIONS.DOWN)
@@ -83,6 +81,7 @@ const Index = () => {
          {
             const updatedTasks = [...tasks];
             let aux = updatedTasks[index];
+
             updatedTasks[index] =
                updatedTasks[action == ACTIONS.UP ? index - 1 : index + 1];
             updatedTasks[action == ACTIONS.UP ? index - 1 : index + 1] = aux;
@@ -92,6 +91,17 @@ const Index = () => {
       }
    };
 
+   const onTodoDelete = (_id: string) => {
+      setTasks(
+         tasks.filter((task) => {
+            return task._id != _id;
+         }),
+      );
+   };
+
+   /*--------------------/
+   /- Component Blocks  -/
+   /--------------------*/
    const createNewTodoComponent = (
       <Button
          size="lg"
@@ -120,7 +130,7 @@ const Index = () => {
                   _id={task._id}
                   index={index}
                   onDelete={onTodoDelete}
-                  onEdit={onTodoEdit}
+                  onEdit={onTodoEditClick}
                   onPositionChange={onPositionChange}
                />
             ))}
