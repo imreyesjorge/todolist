@@ -1,21 +1,34 @@
-import { addDoc, collection, getDocs } from 'firebase/firestore';
-import { nanoid } from 'nanoid';
+import {
+   addDoc,
+   collection,
+   deleteDoc,
+   doc,
+   getDocs,
+   getDoc,
+} from 'firebase/firestore';
 import db from './firebaseClient';
 
 export const getTodos = async () => {
    const todosCollection = collection(db, 'todos');
    const todosSnapshot = await getDocs(todosCollection);
-   const todosList = todosSnapshot.docs.map((note) => note.data());
+
+   const todosList = todosSnapshot.docs.map((todo) => {
+      return { ...todo.data(), _id: todo.id };
+   });
 
    return todosList;
 };
 
-export const addTodo = async (title, body, date) => {
+export const addTodo = async (title: string, body: string, date: string) => {
    const todosCollection = collection(db, 'todos');
-   const docRef = await addDoc(todosCollection, {
-      _id: nanoid(),
+   await addDoc(todosCollection, {
       title,
       body,
       date,
    });
+};
+
+export const deleteTodo = async (_id) => {
+   const docRef = await doc(collection(db, 'todos'), _id);
+   await deleteDoc(docRef);
 };

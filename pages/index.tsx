@@ -6,10 +6,8 @@ import ToDo from '../components/ToDo/ToDo';
 import Main from '../layouts/Main/Main';
 import EditModal from '../components/EditModal/EditModal';
 import { ACTIONS } from '../models/TodoModel';
-import db from '../firebase/firebaseClient';
-import { collection, getDocs } from 'firebase/firestore';
 import React from 'react';
-import { getTodos, addTodo } from '../firebase/firebaseActions';
+import { getTodos, addTodo, deleteTodo } from '../firebase/firebaseActions';
 
 const Index = ({ dbTodos }) => {
    const [tasks, setTasks] = useState([]);
@@ -61,7 +59,6 @@ const Index = ({ dbTodos }) => {
       await addTodo(title, body, date);
       const updatedTodos = await getTodos();
       setTasks(updatedTodos);
-      console.log(updatedTodos);
    };
 
    const onEditModalUpdate = (
@@ -101,12 +98,10 @@ const Index = ({ dbTodos }) => {
       }
    };
 
-   const onTodoDelete = (_id: string) => {
-      setTasks(
-         tasks.filter((task) => {
-            return task._id != _id;
-         }),
-      );
+   const onTodoDelete = async (_id: string) => {
+      await deleteTodo(_id);
+      const updatedTodos = await getTodos();
+      setTasks(updatedTodos);
    };
 
    /*--------------------/
