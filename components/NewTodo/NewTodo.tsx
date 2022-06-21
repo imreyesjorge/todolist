@@ -1,7 +1,6 @@
 import { Box, Button, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 import { NewTodoProps } from '../../models/TodoModel';
-import { nanoid } from 'nanoid';
 
 const NewTodo = ({ handleVisibility, handleCreate }: NewTodoProps) => {
    const [content, setContent] = useState({ title: '', body: '' });
@@ -14,12 +13,7 @@ const NewTodo = ({ handleVisibility, handleCreate }: NewTodoProps) => {
    const onCreate = () => {
       const currentDate = new Date();
 
-      handleCreate(
-         nanoid(),
-         content.title,
-         content.body,
-         currentDate.toDateString(),
-      );
+      handleCreate(content.title, content.body, currentDate.toDateString());
       clearContent();
    };
 

@@ -9,8 +9,9 @@ import { ACTIONS } from '../models/TodoModel';
 import db from '../firebase/firebaseClient';
 import { collection, getDocs } from 'firebase/firestore';
 import React from 'react';
+import { getTodos, addTodo } from '../firebase/firebaseActions';
 
-const Index = ({ notesList, test }) => {
+const Index = ({ dbTodos }) => {
    const [tasks, setTasks] = useState([]);
    const [isCreateMode, setIsCreateMode] = useState(false);
    const [editModalData, setEditModalData] = useState({
@@ -21,7 +22,7 @@ const Index = ({ notesList, test }) => {
    const [isEditVisible, setIsEditVisible] = useState(false);
 
    useEffect(() => {
-      setTasks(notesList);
+      setTasks(dbTodos);
    }, []);
 
    /*-------------------/
@@ -52,13 +53,15 @@ const Index = ({ notesList, test }) => {
    /*-------------------/
    /- To-Do's Actions  -/
    /-------------------*/
-   const onCreateNewTodo = (
-      _id: string,
+   const onCreateNewTodo = async (
       title: string,
       body: string,
       date: string,
    ) => {
-      setTasks([...tasks, { _id, title, body, date }]);
+      await addTodo(title, body, date);
+      const updatedTodos = await getTodos();
+      setTasks(updatedTodos);
+      console.log(updatedTodos);
    };
 
    const onEditModalUpdate = (
@@ -158,13 +161,11 @@ const Index = ({ notesList, test }) => {
 };
 
 export async function getServerSideProps(context) {
-   const notesCollection = collection(db, 'notes');
-   const notesSnapshot = await getDocs(notesCollection);
-   const notesList = notesSnapshot.docs.map((note) => note.data());
+   const dbTodos = await getTodos();
 
    return {
       props: {
-         notesList,
+         dbTodos,
       },
    };
 }
