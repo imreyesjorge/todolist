@@ -1,13 +1,16 @@
 import { PlusSquareIcon } from '@chakra-ui/icons';
 import { Box, Button } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NewTodo from '../components/NewTodo/NewTodo';
 import ToDo from '../components/ToDo/ToDo';
 import Main from '../layouts/Main/Main';
 import EditModal from '../components/EditModal/EditModal';
 import { ACTIONS } from '../models/TodoModel';
+import db from '../firebase/firebaseClient';
+import { collection, getDocs } from 'firebase/firestore';
+import React from 'react';
 
-const Index = () => {
+const Index = ({ notesList, test }) => {
    const [tasks, setTasks] = useState([]);
    const [isCreateMode, setIsCreateMode] = useState(false);
    const [editModalData, setEditModalData] = useState({
@@ -16,6 +19,10 @@ const Index = () => {
       newBody: '',
    });
    const [isEditVisible, setIsEditVisible] = useState(false);
+
+   useEffect(() => {
+      setTasks(notesList);
+   }, []);
 
    /*-------------------/
    /- Event Listeners  -/
@@ -149,5 +156,17 @@ const Index = () => {
       </Main>
    );
 };
+
+export async function getServerSideProps(context) {
+   const notesCollection = collection(db, 'notes');
+   const notesSnapshot = await getDocs(notesCollection);
+   const notesList = notesSnapshot.docs.map((note) => note.data());
+
+   return {
+      props: {
+         notesList,
+      },
+   };
+}
 
 export default Index;

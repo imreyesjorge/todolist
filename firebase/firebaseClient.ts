@@ -1,15 +1,17 @@
 import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-   apiKey: process.env.API_KEY,
-   authDomain: process.env.AUTH_DOMAIN,
-   projectId: process.env.PROJECT_ID,
-   storageBucket: process.env.STORAGE_BUCKET,
-   messagingSenderId: process.env.MESSAGING_SENDER_ID,
-   appId: process.env.APP_ID,
-   measurementId: process.env.MEASUREMENT_ID,
+   apiKey: 'AIzaSyCMyVQcVxMAXpeDw0vuvQOVqXolbtKp0DQ',
+   authDomain: 'todolist-jr.firebaseapp.com',
+   projectId: 'todolist-jr',
+   storageBucket: 'todolist-jr.appspot.com',
+   messagingSenderId: '970745306776',
+   appId: '1:970745306776:web:fff20641cc3777e40efaed',
+   measurementId: 'G-7RJLMX67DR',
 };
 
-const firebase = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-export default firebase;
+export default db;

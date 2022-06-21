@@ -1,9 +1,9 @@
 import { ChakraProvider } from '@chakra-ui/react';
 
-const App = ({ Component, props }) => {
+const App = ({ Component, pageProps }) => {
    return (
       <ChakraProvider>
-         <Component {...props} />
+         <Component {...pageProps} />
       </ChakraProvider>
    );
 };
