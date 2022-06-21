@@ -7,7 +7,12 @@ import Main from '../layouts/Main/Main';
 import EditModal from '../components/EditModal/EditModal';
 import { ACTIONS } from '../models/TodoModel';
 import React from 'react';
-import { getTodos, addTodo, deleteTodo } from '../firebase/firebaseActions';
+import {
+   getTodos,
+   addTodo,
+   deleteTodo,
+   updateTodo,
+} from '../firebase/firebaseActions';
 
 const Index = ({ dbTodos }) => {
    const [tasks, setTasks] = useState([]);
@@ -61,7 +66,7 @@ const Index = ({ dbTodos }) => {
       setTasks(updatedTodos);
    };
 
-   const onEditModalUpdate = (
+   const onEditModalUpdate = async (
       _id: string,
       newTitle: string,
       newBody: string,
@@ -74,7 +79,11 @@ const Index = ({ dbTodos }) => {
       updatedTasks[taskToUpdate].title = newTitle;
       updatedTasks[taskToUpdate].body = newBody;
 
-      setTasks(updatedTasks);
+      await updateTodo(_id, newTitle, newBody);
+
+      const updatedTodos = await getTodos();
+      setTasks(updatedTodos);
+
       onEditModalClose();
    };
 

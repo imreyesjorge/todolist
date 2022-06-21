@@ -5,6 +5,7 @@ import {
    doc,
    getDocs,
    getDoc,
+   updateDoc,
 } from 'firebase/firestore';
 import db from './firebaseClient';
 
@@ -26,6 +27,11 @@ export const addTodo = async (title: string, body: string, date: string) => {
       body,
       date,
    });
+};
+
+export const updateTodo = async (_id: string, title: string, body: string) => {
+   const docRef = await doc(collection(db, 'todos'), _id);
+   await updateDoc(docRef, { title, body });
 };
 
 export const deleteTodo = async (_id) => {
